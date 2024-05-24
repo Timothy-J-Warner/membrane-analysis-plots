@@ -2,7 +2,7 @@
 
 This script is for plotting membrane flux which is declining over time which can occur due to membrane compression or fouling
 
-To run the script, format the data in .csv format for flux_decline_data.csv as below:
+To run the script, format the data in .csv format for flux_decline_data.csv as below and run the script:
 
 Measurement Start time (24hr time),Pressure (bar),Time (mins),Flux 0 (LMH),Flux 1 (LMH),Flux 2 (LMH)
 12:50:00,4.136856,0,6594.800647,6916.787038,6168.216903
