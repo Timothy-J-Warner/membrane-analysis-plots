@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-plot_data = pd.read_csv('flux_decline/flux_decline_data.csv')
+plot_data = pd.read_csv('flux_decline_data.csv')
 
 time = plot_data['Time (mins)'].to_numpy()
 flux_0 = plot_data['Flux 0 (LMH)'].to_numpy()
@@ -17,6 +17,6 @@ plt.xlabel('Time (mins)')
 plt.ylabel('Flux (LMH)')
 plt.axis((0, max(time), 0, max([max(flux_0), max(flux_1), max(flux_2)])*1.2))
 plt.legend(loc='lower right')
-plt.savefig('flux_decline/flux_decline.svg')
-plt.savefig('flux_decline/flux_decline.pdf')
-plt.savefig('flux_decline/flux_decline.jpg', dpi=300)
+plt.savefig('flux_decline.svg')
+plt.savefig('flux_decline.pdf')
+plt.savefig('flux_decline.jpg', dpi=300)
