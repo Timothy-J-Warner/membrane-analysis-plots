@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy import stats
 import pandas as pd
 
@@ -11,18 +12,25 @@ flux = [plot_data[f'Flux {i} (LMH)'].to_numpy() for i in range(3)]
 
 lin_reg = [stats.linregress(pressure, flux[i]) for i in range(3)]
 
-print(lin_reg)
+intercept = np.zeros(3)
+slope = np.zeros(3)
 
-# print(lin_reg)
+for i in range(3):
+    intercept[i] = lin_reg[i].intercept
+    slope[i] = lin_reg[i].slope
 
-# fig = plt.figure()
-# first_line, = plt.plot(pressure, flux_0, 'o', label='Flux 0')
-# second_line, = plt.plot(pressure, flux_1, 'o', label='Flux 1')
-# third_line, = plt.plot(pressure, flux_2, 'o', label='Flux 2')
-# plt.xlabel('Pressure')
-# plt.ylabel('Flux (LMH)')
-# plt.axis((0, max(pressure) * 1.2, 0, max([max(flux_0), max(flux_1), max(flux_2)]) * 1.2))
+fig = plt.figure()
+first_line, = plt.plot(pressure, flux[0], 'o', c='#88ccee', label='Flux 0')
+first_trend, = plt.plot(pressure, slope[0] * pressure + intercept[0], '--', c='#88ccee')
+second_line, = plt.plot(pressure, flux[1], 'v', c='#ddcc77', label='Flux 1')
+second_trend, = plt.plot(pressure, slope[1] * pressure + intercept[1], '--', c='#ddcc77')
+third_line, = plt.plot(pressure, flux[2], '^', c='#cc6677', label='Flux 2')
+third_trend, = plt.plot(pressure, slope[2] * pressure + intercept[2], '--', c='#cc6677')
+
+plt.xlabel('Pressure')
+plt.ylabel('Flux (LMH)')
+plt.axis((0, max(pressure) * 1.2, 0, max([max(flux[0]), max(flux[1]), max(flux[2])]) * 1.2))
 # plt.legend(loc='lower right')
-# plt.savefig('permeance.svg')
-# plt.savefig('permeance.pdf')
-# plt.savefig('permeance.jpg', dpi=300)
+plt.savefig('permeance.svg')
+plt.savefig('permeance.pdf')
+plt.savefig('permeance.jpg', dpi=300)
