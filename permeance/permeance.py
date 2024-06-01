@@ -28,7 +28,7 @@ third_line, = plt.plot(pressure, flux[2], '^', c='#cc6677', label='Flux 2')
 third_trend, = plt.plot(pressure, slope[2] * pressure + intercept[2], '--', c='#cc6677')
 
 plt.xlabel('Pressure')
-plt.ylabel('Flux (LMH)')
+plt.ylabel(u'Flux (Lm\u207b\u00b2Hr\u207b\u00b9)')
 plt.axis((0, max(pressure) * 1.2, 0, max([max(flux[0]), max(flux[1]), max(flux[2])]) * 1.2))
 # plt.legend(loc='lower right')
 plt.savefig('permeance.svg')
