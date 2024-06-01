@@ -36,4 +36,4 @@ output_data = {
 }
 
 df_outputs = pd.DataFrame(output_data)
-df_outputs.to_csv("results/linear_flux_decline_rate.csv", index=False)
+df_outputs.to_csv("results/experiment_information.csv", index=False)
