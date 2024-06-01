@@ -12,10 +12,12 @@ lin_reg = [stats.linregress(time, flux[i]) for i in range(3)]
 
 intercept = np.zeros(3)
 slope = np.zeros(3)
+percent_decline = np.zeros(3)
 
 for i in range(3):
     intercept[i] = lin_reg[i].intercept
     slope[i] = lin_reg[i].slope
+    percent_decline[i] = slope[i] / flux[i][1] * 100
 
 fig = plt.figure()
 first_line, = plt.plot(time, flux[0], c='#88ccee', label='Flux 0')
@@ -25,13 +27,13 @@ plt.xlabel('Time (mins)')
 plt.ylabel('Flux (LMH)')
 plt.axis((0, max(time), 0, max([max(flux[0]), max(flux[1]), max(flux[2])])*1.2))
 # plt.legend(loc='lower right')
-plt.savefig('flux_decline.svg')
-plt.savefig('flux_decline.pdf')
-plt.savefig('flux_decline.jpg', dpi=300)
+plt.savefig('results/flux_decline.svg')
+plt.savefig('results/flux_decline.pdf')
+plt.savefig('results/flux_decline.jpg', dpi=300)
 
 output_data = {
-    'Gradient (LMH/min)': slope
+    'Gradient (LMH/min)': slope, 'Flux Decline (%/min)': percent_decline
 }
 
 df_outputs = pd.DataFrame(output_data)
-df_outputs.to_csv("linear_flux_decline_rate.csv", index=False)
+df_outputs.to_csv("results/linear_flux_decline_rate.csv", index=False)
