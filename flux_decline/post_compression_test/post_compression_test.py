@@ -15,17 +15,17 @@ flux_80_30 = [plot_data_80_30[f'Flux {i} (LMH)'].to_numpy() for i in range(3)]
 
 fig = plt.figure()
 
-first_line_30, = plt.plot(time_30, flux_30[0], '-', c='#cc6677', label='30 PSI Compression')
-second_line_30, = plt.plot(time_30, flux_30[1], '--', c='#cc6677')
-third_line_30, = plt.plot(time_30, flux_30[2], '-.', c='#cc6677')
+first_line_30, = plt.plot(time_30, flux_30[0], '-', c='#ddcc77', label='30 PSI Compression')
+second_line_30, = plt.plot(time_30, flux_30[1], '--', c='#ddcc77')
+third_line_30, = plt.plot(time_30, flux_30[2], '-.', c='#ddcc77')
 
 first_line_45_30, = plt.plot(time_45_30, flux_45_30[0], '-', c='#88ccee', label='45 PSI Compression')
 second_line_45_30, = plt.plot(time_45_30, flux_45_30[1], '--', c='#88ccee')
 third_line_45_30, = plt.plot(time_45_30, flux_45_30[2], '-.', c='#88ccee')
 
-first_line_80_30, = plt.plot(time_80_30, flux_80_30[0], '-', c='#ddcc77', label='80 PSI Compression')
-second_line_80_30, = plt.plot(time_80_30, flux_80_30[1], '--', c='#ddcc77')
-third_line_80_30, = plt.plot(time_80_30, flux_80_30[2], '-.', c='#ddcc77')
+first_line_80_30, = plt.plot(time_80_30, flux_80_30[0], '-', c='#cc6677', label='80 PSI Compression')
+second_line_80_30, = plt.plot(time_80_30, flux_80_30[1], '--', c='#cc6677')
+third_line_80_30, = plt.plot(time_80_30, flux_80_30[2], '-.', c='#cc6677')
 
 
 plt.xlabel('Time (mins)')
