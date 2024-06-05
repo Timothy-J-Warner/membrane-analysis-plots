@@ -14,7 +14,7 @@ def func(x, a, b, c):
     return a * np.exp(-b * x) + c
 
 
-parameter_bounds = (0, [np.inf, np.inf, np.inf])
+parameter_bounds = ([0, 0, 0], [np.inf, np.inf, np.inf])
 initial_guess = [1500, 0.01, 2500]
 maxfev = 800
 
@@ -53,4 +53,4 @@ output_data = {
 }
 
 df_outputs = pd.DataFrame(output_data)
-df_outputs.to_csv("results/model_parameters.csv", index=False)
+df_outputs.to_csv("results/exp_model_parameters.csv", index=False)
