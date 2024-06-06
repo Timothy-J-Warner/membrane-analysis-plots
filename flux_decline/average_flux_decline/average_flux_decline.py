@@ -33,13 +33,13 @@ plt.xlabel('Time (mins)')
 plt.ylabel(u'Residual')
 # plt.axis((0, max(time), 0, max(average_flux)*1.2))
 plt.legend(loc='lower right')
-# plt.savefig('results/flux_decline.svg')
-# plt.savefig('results/flux_decline.pdf')
+plt.savefig('results/flux_decline.svg')
+plt.savefig('results/flux_decline.pdf')
 plt.savefig('results/residual.jpg', dpi=300)
 
 plt.close()
 
-model_param = np.concatenate((popt, [r_squared]))
+parameter_values = np.concatenate((popt, [r_squared]))
 
 fig = plt.figure()
 first_line, = plt.plot(time, average_flux, c='b', label='Flux')
@@ -53,11 +53,25 @@ plt.legend(loc='lower right')
 # plt.savefig('results/flux_decline.pdf')
 plt.savefig('results/flux_decline.jpg', dpi=300)
 
-output_description = ['a', 'b', 'c', 'R2']
+plt.close()
 
-output_data = {
-    'Model Parameters': output_description, u'Specimen 1': model_param
+x = np.linspace(0, 1000, 1001)
+y = func(x, *popt[0:3])
+
+figure = plt.figure()
+plt.plot(x, y)
+plt.xlabel('Time (mins)')
+plt.ylabel(u'Flux (Lm\u207b\u00b2Hr\u207b\u00b9)')
+plt.axis((0, max(x), 0, max(y)*1.2))
+
+plt.savefig('results/exp_model.jpg', dpi=300)
+
+
+model_paremeters = ['a', 'b', 'c', 'R2']
+
+exponential_model = {
+    'Model Parameters': model_paremeters, u'Parameter Values': parameter_values
 }
 
-df_outputs = pd.DataFrame(output_data)
+df_outputs = pd.DataFrame(exponential_model)
 df_outputs.to_csv("results/exp_model_parameters.csv", index=False)

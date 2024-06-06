@@ -23,4 +23,3 @@ plt.axis((0, max(x), 0, max(y)*1.2))
 
 plt.savefig('results/exp_model.jpg', dpi=300)
 
-plt.show()
