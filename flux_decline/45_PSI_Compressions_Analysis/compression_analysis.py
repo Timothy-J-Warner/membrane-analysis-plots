@@ -4,11 +4,17 @@ import pandas as pd
 from scipy import stats
 from scipy.optimize import curve_fit
 
-plot_data = pd.read_csv('compression_data.csv')
+average_plot_data = pd.read_csv('average_compression_data.csv')
+regression_data = pd.read_csv('regression_data.csv')
 
-time = plot_data['Time (mins)'].to_numpy()
-flux = plot_data[f'Flux (LMH)'].to_numpy()
-x = np.linspace(0, max(time), 1001)
+average_time = average_plot_data['Time (mins)'].to_numpy()
+average_flux = average_plot_data[f'Flux (LMH)'].to_numpy()
+flux_std = average_plot_data['Standard Deviation (LMH)']
+
+time = regression_data['Time (mins)']
+flux = regression_data['Flux (LMH)']
+
+x = np.linspace(0, 130, 1001)
 
 
 def exp_func(x, a, b, c):
@@ -19,10 +25,11 @@ exp_parameter_bounds = ([0, 0, 0], [np.inf, np.inf, np.inf])
 exp_initial_guess = [1500, 0.01, 2500]
 exp_maxfev = 800
 
-exp_popt, exp_pcov = curve_fit(exp_func, time, flux, p0=exp_initial_guess, bounds=exp_parameter_bounds, maxfev=exp_maxfev)
-exp_residuals = flux - exp_func(time, *exp_popt)
+exp_popt, exp_pcov = curve_fit(exp_func, time, flux, p0=exp_initial_guess,
+                               bounds=exp_parameter_bounds, maxfev=exp_maxfev)
+exp_residuals = average_flux - exp_func(average_time, *exp_popt)
 exp_ss_res = np.sum(exp_residuals**2)
-ss_tot = np.sum((flux-np.mean(flux))**2)
+ss_tot = np.sum((average_flux-np.mean(average_flux))**2)
 exp_r_squared = 1 - (exp_ss_res / ss_tot)
 
 
@@ -38,7 +45,7 @@ exp_r_squared = 1 - (exp_ss_res / ss_tot)
 
 
 fig = plt.figure()
-exp_residuals, = plt.plot(time, exp_residuals, 'o', c='b', label='Exponential Residuals')
+exp_residuals, = plt.plot(average_time, exp_residuals, 's', c='k', label='Exponential Residuals')
 # lin_residuals, = plt.plot(time, lin_residuals, 's', c='r', label='Linear Residuals')
 
 plt.xlabel('Time (mins)')
@@ -53,14 +60,15 @@ plt.close()
 
 
 fig = plt.figure()
-first_line, = plt.plot(time, flux, 'o', c='k', label='Flux')
-second_line, = plt.plot(x, exp_func(x, *exp_popt), '--', c='b', label='Exponential Model')
+first_line, = plt.plot(average_time, average_flux, 's', c='k', label='Flux')
+second_line, = plt.plot(x, exp_func(x, *exp_popt), '--', c='r', label='Exponential Model')
 # third_line, = plt.plot(time, lin_func(time, *lin_popt), ':', c='r', label='Linear Model')
 
 plt.xlabel('Time (mins)')
 plt.ylabel(u'Flux (Lm\u207b\u00b2Hr\u207b\u00b9)')
-plt.axis((0, max(time), 0, max(flux)*1.2))
+plt.axis((-1, 130, 0, max(average_flux)*1.2))
 plt.legend(loc='lower right')
+plt.errorbar(average_time, average_flux, yerr=flux_std, fmt='none', ecolor='black', capsize=3)
 # plt.savefig('results/flux_decline.svg')
 # plt.savefig('results/flux_decline.pdf')
 plt.savefig('results/flux_decline.jpg', dpi=300)

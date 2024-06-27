@@ -19,7 +19,7 @@ figure = plt.figure()
 plt.plot(x, y)
 plt.xlabel('Time (mins)')
 plt.ylabel(u'Flux (Lm\u207b\u00b2Hr\u207b\u00b9)')
-plt.axis((0, max(x), 0, max(y)*1.2))
+plt.axis((0, 200, 0, max(y)*1.2))
 
 plt.savefig('results/exp_model.jpg', dpi=300)
 
